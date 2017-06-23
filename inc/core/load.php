@@ -236,10 +236,7 @@ class Shortcodes_Ultimate {
 	public static function meta_links( $links, $file ) {
 		// Check plugin
 		if ( $file === plugin_basename( SU_PLUGIN_FILE ) ) {
-			unset( $links[2] );
-			$links[] = '<a href="http://gndev.info/shortcodes-ultimate/" target="_blank">' . __( 'Project homepage', 'shortcodes-ultimate' ) . '</a>';
-			$links[] = '<a href="http://wordpress.org/support/plugin/shortcodes-ultimate/" target="_blank">' . __( 'Support forum', 'shortcodes-ultimate' ) . '</a>';
-			$links[] = '<a href="http://wordpress.org/extend/plugins/shortcodes-ultimate/changelog/" target="_blank">' . __( 'Changelog', 'shortcodes-ultimate' ) . '</a>';
+			
 		}
 		return $links;
 	}

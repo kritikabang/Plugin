@@ -8,11 +8,6 @@ class Su_Admin_Views {
 <div id="su-about-screen">
 	<h1><?php _e( 'Welcome to BOX', 'shortcodes-ultimate' ); ?> <small><?php _e( 'A real swiss army knife for WordPress', 'shortcodes-ultimate' ); ?></small></h1>
 	<div class="sunrise-inline-menu">
-		<a href="http://gndev.info/shortcodes-ultimate/" target="_blank"><strong><?php _e( 'Project homepage', 'shortcodes-ultimate' ); ?></strong></a>
-		<a href="http://gndev.info/kb/" target="_blank"><?php _e( 'Documentation', 'shortcodes-ultimate' ); ?></a>
-		<a href="http://wordpress.org/support/plugin/shortcodes-ultimate/" target="_blank"><?php _e( 'Support forum', 'shortcodes-ultimate' ); ?></a>
-		<a href="http://wordpress.org/extend/plugins/shortcodes-ultimate/changelog/" target="_blank"><?php _e( 'Changelog', 'shortcodes-ultimate' ); ?></a>
-		<a href="https://github.com/gndev/shortcodes-ultimate" target="_blank"><?php _e( 'Fork on GitHub', 'shortcodes-ultimate' ); ?></a>
 	</div>
 	<div class="su-clearfix">
 		<div class="su-about-column">
@@ -91,24 +86,7 @@ class Su_Admin_Views {
 	}
 
 	public static function examples( $field, $config ) {
-		$output = array();
-		$examples = Su_Data::examples();
-		$preview = '<div style="display:none"><div id="su-examples-window"><div id="su-examples-preview"></div></div></div>';
-		$open = ( isset( $_GET['example'] ) ) ? sanitize_key( $_GET['example'] ) : '';
-		$open = '<input id="su_open_example" type="hidden" name="su_open_example" value="' . $open . '" />';
-		$nonce = '<input id="su_examples_nonce" type="hidden" name="su_examples_nonce" value="' . wp_create_nonce( 'su_examples_nonce' ) . '" />';
-		foreach ( $examples as $group ) {
-			$items = array();
-			if ( isset( $group['items'] ) ) foreach ( $group['items'] as $item ) {
-					$code = ( isset( $item['code'] ) ) ? $item['code'] : plugins_url( 'inc/examples/' . $item['id'] . '.example', SU_PLUGIN_FILE );
-					$id = ( isset( $item['id'] ) ) ? $item['id'] : '';
-					$items[] = '<div class="su-examples-item" data-code="' . $code . '" data-id="' . $id . '" data-mfp-src="#su-examples-window"><i class="fa fa-' . $item['icon'] . '"></i> ' . $item['name'] . '</div>';
-				}
-			$output[] = '<div class="su-examples-group su-clearfix"><h2 class="su-examples-group-title">' . $group['title'] . '</h2>' . implode( '', $items ) . '</div>';
-		}
-		su_query_asset( 'css', array( 'magnific-popup', 'font-awesome', 'su-options-page' ) );
-		su_query_asset( 'js', array( 'jquery', 'magnific-popup', 'su-options-page' ) );
-		return '<div id="su-examples-screen">' . implode( '', $output ) . '</div>' . $preview . $open . $nonce;
+		
 	}
 
 	public static function cheatsheet( $field, $config ) {
@@ -194,51 +172,5 @@ class Su_Admin_Views {
 		return '<div id="su-cheatsheet-screen">' . $print . implode( '', $table ) . '</div>';
 	}
 
-	public static function addons( $field, $config ) {
-		$output = array();
-		$addons = array(
-			array(
-				'name' => __( 'New Shortcodes', 'shortcodes-ultimate' ),
-				'desc' => __( 'Parallax sections, responsive content slider, pricing tables, vector icons, testimonials, progress bars and even more', 'shortcodes-ultimate' ),
-				'url' => 'http://gndev.info/shortcodes-ultimate/extra/',
-				'image' => plugins_url( 'assets/images/banners/extra.png', SU_PLUGIN_FILE )
-			),
-			array(
-				'name' => __( 'Maker', 'shortcodes-ultimate' ),
-				'desc' => __( 'This add-on allows you to create custom shortcodes. You can easily create any shortcode with different parameters or even override default shortcodes', 'shortcodes-ultimate' ),
-				'url' => 'http://gndev.info/shortcodes-ultimate/maker/',
-				'image' => plugins_url( 'assets/images/banners/maker.png', SU_PLUGIN_FILE )
-			),
-			array(
-				'name' => __( 'Skins', 'shortcodes-ultimate' ),
-				'desc' => __( 'Set of additional skins for Shortcodes Ultimate. It includes skins for accordeons/spoilers, tabs and some other shortcodes', 'shortcodes-ultimate' ),
-				'url' => 'http://gndev.info/shortcodes-ultimate/skins/',
-				'image' => plugins_url( 'assets/images/banners/skins.png', SU_PLUGIN_FILE )
-			),
-			array(
-				'name' => __( 'Add-ons bundle', 'shortcodes-ultimate' ),
-				'desc' => __( 'Get all three add-ons with huge discount!', 'shortcodes-ultimate' ),
-				'url' => 'http://gndev.info/shortcodes-ultimate/add-ons-bundle/',
-				'image' => plugins_url( 'assets/images/banners/bundle.png', SU_PLUGIN_FILE )
-			),
-		);
-		$plugins = array();
-		$output[] = '<h2>' . __( 'Shortcodes Ultimate Add-ons', 'shortcodes-ultimate' ) . '</h2>';
-		$output[] = '<div class="su-addons-loop su-clearfix">';
-		foreach ( $addons as $addon ) {
-			$output[] = '<div class="su-addons-item" style="visibility:hidden" data-url="' . $addon['url'] . '"><img src="' . $addon['image'] . '" alt="' . $addon['image'] . '" /><div class="su-addons-item-content"><h4>' . $addon['name'] . '</h4><p>' . $addon['desc'] . '</p><div class="su-addons-item-button"><a href="' . $addon['url'] . '" class="button button-primary" target="_blank">' . __( 'Learn more', 'shortcodes-ultimate' ) . '</a></div></div></div>';
-		}
-		$output[] = '</div>';
-		if ( count( $plugins ) ) {
-			$output[] = '<h2>' . __( 'Other WordPress Plugins', 'shortcodes-ultimate' ) . '</h2>';
-			$output[] = '<div class="su-addons-loop su-clearfix">';
-			foreach ( $plugins as $plugin ) {
-				$output[] = '<div class="su-addons-item" style="visibility:hidden" data-url="' . $plugin['url'] . '"><img src="' . $plugin['image'] . '" alt="' . $plugin['image'] . '" /><div class="su-addons-item-content"><h4>' . $plugin['name'] . '</h4><p>' . $plugin['desc'] . '</p>' . Su_Shortcodes::button( array( 'url' => $plugin['url'], 'target' => 'blank', 'style' => 'flat', 'background' => '#FF7654', 'wide' => 'yes', 'radius' => '0' ), __( 'Learn more', 'shortcodes-ultimate' ) ) . '</div></div>';
-			}
-			$output[] = '</div>';
-		}
-		su_query_asset( 'css', array( 'animate', 'su-options-page' ) );
-		su_query_asset( 'js', array( 'jquery', 'su-options-page' ) );
-		return '<div id="su-addons-screen">' . implode( '', $output ) . '</div>';
-	}
+	public static function addons( $field, $config ) {}
 }
