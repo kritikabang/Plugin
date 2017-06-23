@@ -95,25 +95,7 @@ class Su_Generator {
 ?>
 		<div id="su-generator-wrap" style="display:none">
 			<div id="su-generator">
-				<div id="su-generator-header">
-					<div id="su-generator-tools"><?php echo implode( ' <span></span> ', $tools ); ?></div>
-					<input type="text" name="su_generator_search" id="su-generator-search" value="" placeholder="<?php _e( 'Search for shortcodes', 'shortcodes-ultimate' ); ?>" />
-					<p id="su-generator-search-pro-tip"><?php printf( '<strong>%s:</strong> %s', __( 'Pro Tip', 'shortcodes-ultimate' ), __( 'Hit enter to select highlighted shortcode, while searching' ) ) ?></p>
-					<div id="su-generator-filter">
-						<strong><?php _e( 'Filter by type', 'shortcodes-ultimate' ); ?></strong>
-						<?php foreach ( (array) Su_Data::groups() as $group => $label ) echo '<a href="#" data-filter="' . $group . '">' . $label . '</a>'; ?>
-					</div>
-					<div id="su-generator-choices" class="su-generator-clearfix">
-						<?php
-			// Choices loop
-			foreach ( (array) Su_Data::shortcodes() as $name => $shortcode ) {
-				$icon = ( isset( $shortcode['icon'] ) ) ? $shortcode['icon'] : 'puzzle-piece';
-				$shortcode['name'] = ( isset( $shortcode['name'] ) ) ? $shortcode['name'] : $name;
-				echo '<span data-name="' . $shortcode['name'] . '" data-shortcode="' . $name . '" title="' . esc_attr( $shortcode['desc'] ) . '" data-desc="' . esc_attr( $shortcode['desc'] ) . '" data-group="' . $shortcode['group'] . '">' . Su_Tools::icon( $icon ) . $shortcode['name'] . '</span>' . "\n";
-			}
-?>
-					</div>
-				</div>
+				
 				<div id="su-generator-settings"></div>
 				<input type="hidden" name="su-generator-selected" id="su-generator-selected" value="<?php echo plugins_url( '', SU_PLUGIN_FILE ); ?>" />
 				<input type="hidden" name="su-generator-url" id="su-generator-url" value="<?php echo plugins_url( '', SU_PLUGIN_FILE ); ?>" />

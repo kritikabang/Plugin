@@ -4,7 +4,7 @@ class Su_Widget extends WP_Widget {
 	function __construct() {
 		$widget_ops = array(
 			'classname'   => 'shortcodes-ultimate',
-			'description' => __( 'Shortcodes Ultimate widget', 'shortcodes-ultimate' )
+			'description' => __( 'BOX widget', 'shortcodes-ultimate' )
 		);
 		$control_ops = array(
 			'width'   => 300,
