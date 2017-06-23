@@ -65,30 +65,7 @@ jQuery(document).ready(function($) {
 	});
 	// Filters
 	$filters.click(function(e) {
-		// Prepare data
-		var filter = $(this).data('filter');
-		// If filter All, show all choices
-		if (filter === 'all') $choice.css({
-			opacity: 1
-		}).removeClass('su-generator-choice-first');
-		// Else run search
-		else {
-			var regex = new RegExp(filter, 'gi');
-			// Hide all choices
-			$choice.css({
-				opacity: 0.2
-			});
-			// Find searched choices and show
-			$choice.each(function() {
-				// Get shortcode name
-				var group = $(this).data('group');
-				// Show choice if matched
-				if (group.match(regex) !== null) $(this).css({
-					opacity: 1
-				}).removeClass('su-generator-choice-first');
-			});
-		}
-		e.preventDefault();
+		
 	});
 	// Go to home link
 	$('#su-generator').on('click', '.su-generator-home', function(e) {
@@ -146,45 +123,7 @@ jQuery(document).ready(function($) {
 				$(this).val('').blur();
 				$first.trigger('click');
 			}
-			// Hide all choices
-			$choice.css({
-				opacity: 0.2
-			}).removeClass('su-generator-choice-first');
 			// Loop and highlight choices
-			$choice.each(function() {
-				// Get choice data
-				var data = $(this).data(),
-					id = data.shortcode,
-					name = data.name,
-					desc = data.desc,
-					group = data.group,
-					matches = ([id, name, desc, group].join(' ')).match(regex);
-				// Highlight choice if matched
-				if (matches !== null) {
-					// Highlight current choice
-					$(this).css({
-						opacity: 1
-					});
-					// Check for exact match
-					if (val === id) {
-						// Remove primary class from all choices
-						$choice.removeClass('su-generator-choice-first');
-						// Add primary class to the current choice
-						$(this).addClass('su-generator-choice-first');
-						// Prevent selecting by matches number
-						best = 999;
-					}
-					// Check matches length
-					else if (matches.length > best) {
-						// Remove primary class from all choices
-						$choice.removeClass('su-generator-choice-first');
-						// Add primary class to the current choice
-						$(this).addClass('su-generator-choice-first');
-						// Save the score
-						best = matches.length;
-					}
-				}
-			});
 			// Remove primary class if search field is empty
 			if (val === '') $choice.removeClass('su-generator-choice-first');
 		}

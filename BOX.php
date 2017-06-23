@@ -3,7 +3,7 @@
   Plugin Name: BOX
   Version: 4.9.9
   Author: Kriitka Bang
-  Description: 
+  Description: Its a Wordpress Plugin to cretae div article.
   License: GPL
  */
 

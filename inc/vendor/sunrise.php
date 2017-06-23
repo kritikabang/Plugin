@@ -85,29 +85,7 @@ if ( !class_exists( 'Sunrise4' ) ) {
 		 * @param array   $args Page config and options
 		 */
 		public function add_menu( $args ) {
-			// Prepare default config
-			$args = wp_parse_args( $args, array(
-					'page_title'  => __( 'Plugin Settings', $this->config['textdomain'] ),
-					'menu_title'  => __( 'Plugin Settings', $this->config['textdomain'] ),
-					'capability'  => 'manage_options',
-					'slug'        => $this->config['slug'],
-					'icon_url'    => admin_url( 'images/wp-logo.png' ),
-					'position'    => '81.' . rand( 0, 99 ),
-					'url'         => '',
-					'options'     => array()
-				) );
-			// Define page url
-			if ( !$args['url'] ) $args['url'] = admin_url( 'admin.php?page=' . $args['slug'] );
-			// Save url to global config
-			if ( !$this->config['url'] ) $this->config['url'] = $args['url'];
-			// Save options to global config
-			if ( is_array( $args['options'] ) && count( $args['options'] ) ) foreach ( $args['options'] as $option ) {
-					$this->config['options'][] = $option;
-				}
-			// Save menu slug to the global config
-			$this->config['slugs'][] = $args['slug'];
-			// Add page to global config
-			$this->config['menus'][$args['slug']] = $args;
+			
 		}
 
 		/**
@@ -116,32 +94,6 @@ if ( !class_exists( 'Sunrise4' ) ) {
 		 * @param array   $args Page config and options
 		 */
 		public function add_submenu( $args ) {
-			// Prepare default config
-			$args = wp_parse_args( $args, array(
-					'parent_slug' => 'options-general.php',
-					'page_title'  => __( 'Plugin Settings', $this->config['textdomain'] ),
-					'menu_title'  => __( 'Plugin Settings', $this->config['textdomain'] ),
-					'capability'  => 'manage_options',
-					'slug'        => $this->config['slug'],
-					'url'         => '',
-					'options'     => array()
-				) );
-			// Define page url
-			if ( !$args['url'] ) {
-				if ( strpos( $args['parent_slug'], '.php' ) !== false && strpos( $args['parent_slug'], '?' ) !== false ) $args['url'] = admin_url( $args['parent_slug'] . '&page=' . $args['slug'] );
-				elseif ( strpos( $args['parent_slug'], '.php' ) !== false ) $args['url'] = admin_url( $args['parent_slug'] . '?page=' . $args['slug'] );
-				else $args['url'] = ( isset( $this->config['menus'][$args['parent_slug']] ) ) ? admin_url( 'admin.php?page=' . $args['slug'] ) : '';
-			}
-			// Save url to global config
-			if ( !$this->config['url'] ) $this->config['url'] = $args['url'];
-			// Save options to global config
-			if ( is_array( $args['options'] ) && count( $args['options'] ) && !in_array( $args['slug'], array_keys( (array) $this->config['menus'] ) ) ) foreach ( $args['options'] as $option ) {
-					$this->config['options'][] = $option;
-				}
-			// Save page slug to the global config
-			$this->config['slugs'][] = $args['slug'];
-			// Add page to global config
-			$this->config['pages'][$args['slug']] = $args;
 		}
 
 		/**
